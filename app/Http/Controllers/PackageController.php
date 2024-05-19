@@ -38,6 +38,28 @@ class PackageController extends Controller
         // Pass packages, search parameters, and options to view
         return view('packages.index', compact('packages', 'roomOptions', 'bedOptions'));
     }
+    public function public(Request $request)
+    {
+        $roomOptions = [101, 102, 103, 201, 202, 203];
+        $bedOptions = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+        $query = Package::query();
+
+        if ($request->filled(['room'])) {
+            if ($request->has('room')) {
+                $query->where('room', $request->room);
+            }
+        }
+        if ($request->filled(['bed'])) {
+            if ($request->has('bed')) {
+                $query->where('bed', $request->bed);
+            }
+        }
+
+        $query->orderBy('date', 'desc');
+        $packages = $query->get();
+        return view('packages.public', compact('packages', 'roomOptions', 'bedOptions'));
+    }
 
 
     // Method to show the add package form

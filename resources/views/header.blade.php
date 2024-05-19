@@ -12,6 +12,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('packages.index') }}">包裹</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('visitors.index') }}">訪客</a>
+                </li>
             </ul>
         </div>
     </div>
