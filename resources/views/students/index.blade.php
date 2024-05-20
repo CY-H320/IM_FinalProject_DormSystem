@@ -11,10 +11,6 @@
 <div class="container mt-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>學生</h2>
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button class="btn btn-danger">登出</button>
-        </form>
     </div>
     <form action="{{ route('student.index') }}" method="get">
         <div class="form-row">

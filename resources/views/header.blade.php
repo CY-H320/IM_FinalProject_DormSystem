@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('student.index') }}">學生</a>
                 </li>
@@ -19,6 +19,10 @@
                     <a class="nav-link" href="{{ route('equipments.index') }}">器材</a>
                 </li>
             </ul>
+            <form action="{{ route('logout') }}" method="post">
+                @csrf
+                <button class="btn btn-danger">登出</button>
+            </form>
         </div>
     </div>
 </nav>
