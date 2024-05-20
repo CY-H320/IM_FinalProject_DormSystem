@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTU Dormitory Admin</title>
+    <title>台灣大學住宿管理系統</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -15,54 +15,54 @@
     <form action="{{ route('student.index') }}" method="get">
         <div class="form-row">
             <div class="col-md-3 mb-3">
-                <label for="room">Room:</label>
+                <label for="room">房間</label>
                 <select class="form-control" name="room" id="room">
-                    <option value="">All Rooms</option>
+                    <option value="">所有房間</option>
                     @foreach($rooms as $room)
                         <option value="{{ $room }}">{{ $room }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="bed">Bed:</label>
+                <label for="bed">床位</label>
                 <select class="form-control" name="bed" id="bed">
-                    <option value="">All Beds</option>
+                    <option value="">所有床位</option>
                     @foreach($beds as $bed)
                         <option value="{{ $bed }}">{{ $bed }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="floor">Floor:</label>
+                <label for="floor">樓層</label>
                 <select class="form-control" name="floor" id="floor">
-                    <option value="">All Floors</option>
+                    <option value="">所有樓層</option>
                     @foreach($floors as $floor)
                         <option value="{{ $floor }}">{{ $floor }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="studentID">ID:</label>
-                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="Enter student ID">
+                <label for="studentID">學號</label>
+                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="搜尋學號">
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Search</button>
-        <button id="copyEmailButton" class="btn btn-warning">Copy Emails</button>
+        <button class="btn btn-primary" type="submit">搜尋</button>
+        <button id="copyEmailButton" class="btn btn-warning">複製郵件</button>
     </form>
 
     @if($students->isNotEmpty())
     <div class="mt-4">
-        <h4>Search Results:</h4>
+        <h4>學生：</h4>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Room</th>
-                    <th>Bed</th>
-                    <th>Name</th>
-                    <th>Package Count</th>
-                    <th>Visitor Count</th>
-                    <th>Booking Count</th>
-                    <th>Details</th>
+                    <th>房間</th>
+                    <th>床位</th>
+                    <th>名字</th>
+                    <th>包裹數量</th>
+                    <th>訪客數量</th>
+                    <th>借用登記</th>
+                    <th>詳細資料</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,7 +75,7 @@
                     <td>{{ $visitorCounts[$student->id] ?? 0 }}</td>
                     <td>{{ $bookingCounts[$student->id] ?? 0 }}</td>
                     <td>
-                        <a href="{{ route('student.details', ['id' => $student->id]) }}" class="btn btn-primary">Details</a>
+                        <a href="{{ route('student.details', ['id' => $student->id]) }}" class="btn btn-primary">查看</a>
                     </td>
                 </tr>
                 @endforeach
@@ -104,7 +104,7 @@
         document.execCommand("copy");
         document.body.removeChild(textarea);
 
-        alert("Emails copied to clipboard!");
+        alert("成功複製郵件！");
     });
 </script>
 </html>

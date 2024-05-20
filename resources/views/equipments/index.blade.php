@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipment Booking Schedule</title>
+    <title>台灣大學住宿管理系統</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 @include('header')
 <div class="container mt-5">
-    <h2 class="text-center">Equipment Booking Schedule</h2>
-    <div class="p-4">
-        <a href="{{ route('bookings.create') }}" class="btn btn-success">Book Equipment</a>
+    <h2>登記借用</h2>
+    <div class="pt-2 pb-3">
+        <a href="{{ route('bookings.create') }}" class="btn btn-success">登記</a>
     </div>
     <div class="row">
         @foreach($equipments as $equipment)
@@ -23,12 +23,12 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Booked By</th>
-                                    <th>Room</th>
-                                    <th>Bed</th>
-                                    <th>Actions</th>
+                                    <th>開始借用時間</th>
+                                    <th>結束借用時間</th>
+                                    <th>借用學號</th>
+                                    <th>房間</th>
+                                    <th>床位</th>
+                                    <th>刪除</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -49,13 +49,13 @@
                                             <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-danger">借用完畢</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6">No bookings found</td>
+                                        <td colspan="6">無借用登記</td>
                                     </tr>
                                 @endforelse
                             </tbody>

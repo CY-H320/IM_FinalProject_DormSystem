@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTU Dormitory Admin</title>
+    <title>台灣大學住宿管理系統</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -16,48 +16,48 @@
     <form action="{{ route('visitors.index') }}" method="get">
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="room">Room:</label>
+                <label for="room">房間</label>
                 <select class="form-control" name="room" id="room">
-                    <option value="">All Rooms</option>
+                    <option value="">所有房間</option>
                     @foreach($roomOptions as $room)
                         <option value="{{ $room }}">{{ $room }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="bed">Bed:</label>
+                <label for="bed">床位</label>
                 <select class="form-control" name="bed" id="bed">
-                    <option value="">All Beds</option>
+                    <option value="">所有床位</option>
                     @foreach($bedOptions as $bed)
                         <option value="{{ $bed }}">{{ $bed }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-3">
-                <label for="studentID">ID:</label>
-                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="Enter student ID">
+                <label for="studentID">學號</label>
+                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="搜尋學號">
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Search</button>
-        <a href="{{ route('visitors.create') }}" class="btn btn-success">Add Visitor</a>
-        <button id="copyEmailButton" class="btn btn-warning">Copy Emails</button>
+        <button class="btn btn-primary" type="submit">搜尋</button>
+        <a href="{{ route('visitors.create') }}" class="btn btn-success">訪客登記</a>
+        <button id="copyEmailButton" class="btn btn-warning">複製郵件</button>
     </form>
     
 
     @if($visitors->isNotEmpty())
     <div class="mt-4">
-        <h4>Visitors:</h4>
+        <h4>訪客：</h4>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Visitor Name</th>
-                    <th>Visitor Gender</th>
-                    <th>Visit Time</th>
-                    <th>Room</th>
-                    <th>Bed</th>
-                    <th>Student Name</th>
-                    <th>Student ID</th>
-                    <th>Action</th>
+                    <th>訪客姓名</th>
+                    <th>訪客性別</th>
+                    <th>訪客拜訪時間</th>
+                    <th>房間</th>
+                    <th>床位</th>
+                    <th>住宿生姓名</th>
+                    <th>住宿生學號</th>
+                    <th>刪除</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,7 +80,7 @@
                         <form action="{{ route('visitors.destroy', $visitor->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">刪除</button>
                         </form>
                     </td>
                 </tr>
@@ -115,7 +115,7 @@
         document.execCommand("copy");
         document.body.removeChild(textarea);
 
-        alert("Emails copied to clipboard!");
+        alert("成功複製郵件！");
     });
 </script>
 </html>

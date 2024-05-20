@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTU Dormitory Admin</title>
+    <title>台灣大學住宿管理系統</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -20,32 +20,32 @@
     <form action="{{ route('visitors.store') }}" method="post">
         @csrf
         <div class="form-group">
-            <label for="visitorName">Visitor Name:</label>
+            <label for="visitorName">訪客姓名：</label>
             <input type="text" id="visitorName" name="visitorName" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="gender">Visitor Gender:</label>
+            <label for="gender">訪客性別：</label>
             <select id="gender" name="gender" class="form-control" required>
-                <option value="">Select Gender</option>
+                <option value="">選取性別⋯⋯</option>
                 <option value="男">男</option>
                 <option value="女">女</option>
                 <option value="其他">其他</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="student_id">Student ID:</label>
+            <label for="student_id">住宿生學號：</label>
             <input type="text" id="student_id" name="student_id" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="room">Room:</label>
+            <label for="room">房間：</label>
             <input type="text" id="room" name="room" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="bed">Bed:</label>
+            <label for="bed">床位：</label>
             <input type="text" id="bed" name="bed" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn-primary">Add Visitor</button>
-        <a href="{{ route('visitors.index') }}" class="btn btn-success">Return</a>
+        <button type="submit" class="btn btn-primary">登記</button>
+        <a href="{{ route('visitors.index') }}" class="btn btn-success">返回</a>
     </form>
 </div>
 

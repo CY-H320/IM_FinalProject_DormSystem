@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTU Dormitory Admin</title>
+    <title>台灣大學住宿管理系統</title>
     <style>
         body {
             font-family: Arial, sans-serif;

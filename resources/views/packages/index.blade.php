@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NTU Dormitory Admin</title>
+    <title>台灣大學住宿管理系統</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -18,42 +18,43 @@
     <form action="{{ route('packages.index') }}" method="get">
         <div class="form-row">
             <div class="col-md-4 mb-3">
-                <label for="room">Room:</label>
+                <label for="room">房間</label>
                 <select class="form-control" name="room" id="room">
-                    <option value="">All Rooms</option>
+                    <option value="">所有房間</option>
                     @foreach($roomOptions as $room)
                         <option value="{{ $room }}">{{ $room }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="bed">Bed:</label>
+                <label for="bed">床位</label>
                 <select class="form-control" name="bed" id="bed">
-                    <option value="">All Beds</option>
+                    <option value="">所有床位</option>
                     @foreach($bedOptions as $bed)
                         <option value="{{ $bed }}">{{ $bed }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Search</button>
-        <a href="{{ route('package.create') }}" class="btn btn-success">Add Package</a>
-        <button id="copyEmailButton" class="btn btn-warning">Copy Emails</button>
+        <button class="btn btn-primary" type="submit">搜尋</button>
+        <a href="{{ route('package.create') }}" class="btn btn-success">新增包裹</a>
+        <button id="copyEmailButton" class="btn btn-warning">複製郵件</button>
     </form>
 
 
     @if($packages->isNotEmpty())
     <div class="mt-4">
-        <h4>Packages:</h4>
+        <h4>包裹：
+        </h4>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Room</th>
-                    <th>Bed</th>
-                    <th>Name</th>
-                    <th>Student ID</th>
-                    <th>Action</th> <!-- New column for delete button -->
+                    <th>日期</th>
+                    <th>房間</th>
+                    <th>床位</th>
+                    <th>名字</th>
+                    <th>學號</th>
+                    <th>刪除</th> <!-- New column for delete button -->
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +75,7 @@
                         <form action="{{ route('packages.destroy', $package->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">已領取</button>
                         </form>
                     </td>
                 </tr>
@@ -83,7 +84,7 @@
         </table>
     </div>
     @else
-    <p>No packages found.</p>
+    <p>無包裹</p>
     @endif
 </div>
 </body>
@@ -108,7 +109,7 @@
         document.execCommand("copy");
         document.body.removeChild(textarea);
 
-        alert("Emails copied to clipboard!");
+        alert("成功複製郵件！");
     });
 </script>
 </html>
