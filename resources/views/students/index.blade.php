@@ -47,6 +47,7 @@
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Search</button>
+        <button id="copyEmailButton" class="btn btn-warning">Copy Emails</button>
     </form>
 
     @if($students->isNotEmpty())
@@ -89,4 +90,21 @@
 </div>
 @include('footer')
 </body>
+<script>
+    document.getElementById("copyEmailButton").addEventListener("click", function() {
+        var emails = [];
+        @foreach($students as $student)
+            emails.push("{{ $student->email }}");
+        @endforeach
+
+        var textarea = document.createElement("textarea");
+        textarea.value = emails.join("\n");
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        alert("Emails copied to clipboard!");
+    });
+</script>
 </html>

@@ -38,8 +38,9 @@
         </div>
         <button class="btn btn-primary" type="submit">Search</button>
         <a href="{{ route('package.create') }}" class="btn btn-success">Add Package</a>
+        <button id="copyEmailButton" class="btn btn-warning">Copy Emails</button>
     </form>
-    
+
 
     @if($packages->isNotEmpty())
     <div class="mt-4">
@@ -85,6 +86,29 @@
     <p>No packages found.</p>
     @endif
 </div>
-
 </body>
+
+<script>
+    document.getElementById("copyEmailButton").addEventListener("click", function() {
+        var emailsSet = new Set();
+        @foreach($packages as $package)
+            @if($package->student)
+                emailsSet.add("{{ $package->student->email }}"); // Add email to the Set
+            @endif
+        @endforeach
+
+        // Convert Set to array
+        var emailsArray = Array.from(emailsSet);
+
+        // Copy emails to clipboard
+        var textarea = document.createElement("textarea");
+        textarea.value = emailsArray.join("\n");
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        alert("Emails copied to clipboard!");
+    });
+</script>
 </html>
