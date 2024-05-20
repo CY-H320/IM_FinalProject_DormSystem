@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Booking;
 use App\Models\Equipment;
+use App\Models\Student;
 
 class BookingController extends Controller
 {
     public function index()
     {
         $equipments = Equipment::all();
-        
-        // Fetch bookings for each equipment by equipment name
+
         foreach ($equipments as $equipment) {
             $bookings = Booking::where('name', $equipment->name)->get();
+            foreach ($bookings as $booking) {
+                $student = Student::where('studentID', $booking->booked_by)->first();
+                $booking->student = $student;
+            }
             $equipment->bookings = $bookings;
         }
-        
+
         return view('equipments.index', compact('equipments'));
     }
 
@@ -30,15 +34,30 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'equipment_id' => 'required|exists:equipments,id',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_time',
-            'booked_by' => 'required|string|max:255',
+            'name' => 'required|string|exists:equipments,name',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
+            'student_id' => 'required|string|max:255',
         ]);
 
-        Booking::create($request->all());
+        // Find the equipment by name
+        $equipment = Equipment::where('name', $request->name)->firstOrFail();
 
-        return redirect()->route('equipments.index')
-                         ->with('success', 'Booking created successfully.');
+        Booking::create([
+            'name' => $equipment->name,
+            'start_time' => now()->format('Y-m-d') . ' ' . $request->start_time . ':00',
+            'end_time' => now()->format('Y-m-d') . ' ' . $request->end_time . ':00',
+            'booked_by' => $request->student_id,
+        ]);
+
+        return redirect()->route('equipments.index')->with('success', 'Booking created successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->delete();
+
+        return redirect()->route('equipments.index')->with('success', 'Booking deleted successfully.');
     }
 }

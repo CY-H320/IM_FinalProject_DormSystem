@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\BookingController;
 
 Route::get('/', function () {
     return view('index');
@@ -27,6 +28,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('visitors/create', [VisitorController::class, 'create'])->name('visitors.create');
     Route::post('visitors', [VisitorController::class, 'store'])->name('visitors.store');
     Route::delete('visitors/{visitor}', [VisitorController::class, 'destroy'])->name('visitors.destroy');
+    Route::get('/equipments', [BookingController::class, 'index'])->name('equipments.index');
+    Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 });
 
 Route::get('packages/public', [PackageController::class, 'public'])->name('package.public');
@@ -36,11 +41,3 @@ Route::post('visitors/public/create', [VisitorController::class, 'publicStore'])
 
 
 
-
-// routes/web.php
-
-use App\Http\Controllers\BookingController;
-
-Route::get('/equipments', [BookingController::class, 'index'])->name('equipments.index');
-Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');

@@ -33,6 +33,10 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-md-3 mb-3">
+                <label for="studentID">ID:</label>
+                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="Enter student ID">
+            </div>
         </div>
         <button class="btn btn-primary" type="submit">Search</button>
         <a href="{{ route('visitors.create') }}" class="btn btn-success">Add Visitor</a>
@@ -48,7 +52,6 @@
                     <th>Visitor Name</th>
                     <th>Visitor Gender</th>
                     <th>Visit Time</th>
-                    <th>Exit Time</th>
                     <th>Room</th>
                     <th>Bed</th>
                     <th>Student Name</th>
@@ -62,11 +65,16 @@
                     <td>{{ $visitor->visitorName }}</td>
                     <td>{{ $visitor->gender }}</td>
                     <td>{{ $visitor->visit_time }}</td>
-                    <td>{{ $visitor->exit_time }}</td>
                     <td>{{ $visitor->room }}</td>
                     <td>{{ $visitor->bed }}</td>
                     <td>{{ $visitor->student_name }}</td>
-                    <td>{{ $visitor->student_id }}</td>
+                    <td>
+                    @if ($visitor->student)
+                        <a href="{{ route('student.details', $visitor->student->id) }}">{{ $visitor->student->studentID }}</a>
+                    @else
+                        N/A
+                    @endif
+                    </td>
                     <td>
                         <form action="{{ route('visitors.destroy', $visitor->id) }}" method="post">
                             @csrf

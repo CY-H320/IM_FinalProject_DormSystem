@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('visitors.index') }}">訪客</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('equipments.index') }}">器材</a>
+                </li>
             </ul>
         </div>
     </div>

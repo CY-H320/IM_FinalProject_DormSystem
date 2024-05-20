@@ -51,6 +51,7 @@
                     <th>Room</th>
                     <th>Bed</th>
                     <th>Name</th>
+                    <th>Student ID</th>
                     <th>Action</th> <!-- New column for delete button -->
                 </tr>
             </thead>
@@ -61,6 +62,13 @@
                     <td>{{ $package->room }}</td>
                     <td>{{ $package->bed }}</td>
                     <td>{{ $package->name }}</td>
+                    <td>
+                    @if ($package->student)
+                        <a href="{{ route('student.details', $package->student->id) }}">{{ $package->student->studentID }}</a>
+                    @else
+                        N/A
+                    @endif
+                    </td>
                     <td>
                         <form action="{{ route('packages.destroy', $package->id) }}" method="post">
                             @csrf

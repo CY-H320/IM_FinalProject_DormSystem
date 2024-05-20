@@ -1,5 +1,3 @@
-<!-- resources/views/search.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +18,7 @@
     </div>
     <form action="{{ route('student.index') }}" method="get">
         <div class="form-row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="room">Room:</label>
                 <select class="form-control" name="room" id="room">
                     <option value="">All Rooms</option>
@@ -29,7 +27,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="bed">Bed:</label>
                 <select class="form-control" name="bed" id="bed">
                     <option value="">All Beds</option>
@@ -38,7 +36,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label for="floor">Floor:</label>
                 <select class="form-control" name="floor" id="floor">
                     <option value="">All Floors</option>
@@ -46,6 +44,10 @@
                         <option value="{{ $floor }}">{{ $floor }}</option>
                     @endforeach
                 </select>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="studentID">ID:</label>
+                <input type="text" class="form-control" name="studentID" id="studentID" placeholder="Enter student ID">
             </div>
         </div>
         <button class="btn btn-primary" type="submit">Search</button>
@@ -61,7 +63,9 @@
                     <th>Bed</th>
                     <th>Name</th>
                     <th>Package Count</th>
-                    <th>Details</th> <!-- New column for the detail button -->
+                    <th>Visitor Count</th>
+                    <th>Booking Count</th>
+                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,9 +75,11 @@
                     <td>{{ $student->bed }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $packageCounts[$student->id] ?? 0 }}</td>
+                    <td>{{ $visitorCounts[$student->id] ?? 0 }}</td>
+                    <td>{{ $bookingCounts[$student->id] ?? 0 }}</td>
                     <td>
                         <a href="{{ route('student.details', ['id' => $student->id]) }}" class="btn btn-primary">Details</a>
-                    </td> <!-- Add a detail button linking to the student detail page -->
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

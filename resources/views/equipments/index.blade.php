@@ -9,36 +9,66 @@
 <body>
 @include('header')
 <div class="container mt-5">
-    <h2>Equipment Booking Schedule</h2>
-
-    @foreach($equipments as $equipment)
-        <h3>{{ $equipment->name }}</h3>
-        <p>{{ $equipment->description }}</p>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Booked By</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($equipment->bookings as $booking)
-                    <tr>
-                        <td>{{ $booking->start_time }}</td>
-                        <td>{{ $booking->end_time }}</td>
-                        <td>{{ $booking->booked_by }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="3">No bookings found</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    @endforeach
-
-    <a href="{{ route('bookings.create') }}" class="btn btn-success">Book Equipment</a>
+    <h2 class="text-center">Equipment Booking Schedule</h2>
+    <div class="p-4">
+        <a href="{{ route('bookings.create') }}" class="btn btn-success">Book Equipment</a>
+    </div>
+    <div class="row">
+        @foreach($equipments as $equipment)
+            <div class="col-md-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ $equipment->name }}</h3>
+                        <p class="card-text">{{ $equipment->description }}</p>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Booked By</th>
+                                    <th>Room</th>
+                                    <th>Bed</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($equipment->bookings as $booking)
+                                    <tr>
+                                        <td>{{ $booking->start_time }}</td>
+                                        <td>{{ $booking->end_time }}</td>
+                                        <td>
+                                            @if ($booking->student)
+                                                <a href="{{ route('student.details', $booking->student->id) }}">{{ $booking->student->studentID }}</a>
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>                                        
+                                        <td>{{ $booking->student->room ?? 'N/A' }}</td>
+                                        <td>{{ $booking->student->bed ?? 'N/A' }}</td>
+                                        <td>
+                                            <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6">No bookings found</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
