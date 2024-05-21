@@ -1,7 +1,7 @@
 <div class="footer" style="
             font-family: Arial, monospace;
             font-weight: 200;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
             background-color: #dbdbdb;

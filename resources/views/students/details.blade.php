@@ -8,7 +8,7 @@
 </head>
 <body>
 @include('header')
-<div class="container mt-5">
+<div class="container mt-5" style="padding-bottom: 80px;">
     <h2>{{ $student->name }}</h2>
     <p><strong>學號：</strong> {{ $student->studentID }}</p>
     <p>
@@ -17,7 +17,8 @@
     </p>
     <p><strong>房位：</strong> {{ $student->room }}</p>
     <p><strong>床位：</strong> {{ $student->bed }}</p>
-
+    <p><strong>記點：</strong> {{ $student->point }}</p>
+    <p><strong>備註：</strong> {{ $student->description }}</p>
     <h3>包裹：</h3>
     @if($packages->isNotEmpty())
     <ul>
@@ -25,8 +26,6 @@
         <li class="d-flex justify-content-between align-items-center">
             <div class="p-2">
                 <span><strong>日期：</strong> {{ $package->date }}</span>
-                <span><strong>房位：</strong> {{ $package->room }}</span>
-                <span><strong>床位：</strong> {{ $package->bed }}</span>
                 <span><strong>名字：</strong> {{ $package->name }}</span>
             </div>
             <form action="{{ route('package.delete', $package->id) }}" method="post">
@@ -84,7 +83,7 @@
     @else
     <p>無物品借用</p>
     @endif
-
+    <a href="{{ route('student.edit', $student->id) }}" class="btn btn-info">編輯資料</a>
     <a href="{{ route('student.index') }}" class="btn btn-primary">回學生頁面</a>
 </div>
 

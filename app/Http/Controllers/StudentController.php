@@ -56,7 +56,7 @@ class StudentController extends Controller
             $bookingCounts[$student->id] = $bookingCount;
         }
 
-        return view('students.index', compact('students', 'rooms', 'beds', 'floors', 'visitorCounts', 'bookingCounts'));
+        return view('students.index', compact('students', 'rooms', 'beds', 'floors','packageCounts', 'visitorCounts', 'bookingCounts'));
     }
 
 
@@ -79,4 +79,28 @@ class StudentController extends Controller
         $package->delete();
         return redirect()->back()->with('success', 'Package deleted successfully.');
     }
+
+    public function edit(Student $student)
+    {
+        return view('students.edit', compact('student'));
+    }
+
+    // Update the specified resource in storage.
+    public function update(Request $request, Student $student)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'studentID' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'room' => 'nullable|string|max:255',
+            'bed' => 'nullable|string|max:255',
+            'point' => 'nullable|integer',
+            'description' => 'nullable|string',
+        ]);
+
+        $student->update($request->all());
+
+        return redirect()->route('student.index')->with('success', '學生資料已更新');
+    }
+
 }

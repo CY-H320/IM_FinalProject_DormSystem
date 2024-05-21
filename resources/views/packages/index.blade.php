@@ -10,7 +10,7 @@
 </head>
 <body>
 @include('header')
-<div class="container mt-5">
+<div class="container mt-5" style="padding-bottom: 80px;">
     <h2>包裹</h2>
 
     <!-- Add button to navigate to create page -->

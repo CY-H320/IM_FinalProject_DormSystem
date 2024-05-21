@@ -8,7 +8,7 @@
 </head>
 <body>
 @include('header')
-<div class="container mt-5">
+<div class="container mt-5" style="padding-bottom: 80px;">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>學生</h2>
     </div>

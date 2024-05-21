@@ -7,16 +7,16 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-@include('header')
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">台灣大學住宿管理系統</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
 <div class="container mt-5" style="padding-bottom: 80px;">
     <h2>登記借用</h2>
-    <div class="pt-2 pb-3">
-        <a href="{{ route('bookings.create') }}" class="btn btn-success">登記</a>
-        <form action="{{ route('bookings.clean') }}" method="POST" style="display:inline;">
-            @csrf
-            <button type="submit" class="btn btn-danger">清理過期借用</button>
-        </form>    
-    </div>
     <div class="row">
         @foreach($equipments as $equipment)
             <div class="col-md-12 mb-4">
@@ -30,9 +30,6 @@
                                     <th>開始借用時間</th>
                                     <th>結束借用時間</th>
                                     <th>借用學號</th>
-                                    <th>房間</th>
-                                    <th>床位</th>
-                                    <th>刪除</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,15 +44,6 @@
                                                 N/A
                                             @endif
                                         </td>                                        
-                                        <td>{{ $booking->student->room ?? 'N/A' }}</td>
-                                        <td>{{ $booking->student->bed ?? 'N/A' }}</td>
-                                        <td>
-                                            <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">借用完畢</button>
-                                            </form>
-                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

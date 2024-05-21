@@ -15,7 +15,7 @@
         </button>
     </div>
 </nav>
-<div class="container mt-5">
+<div class="container mt-5" style="padding-bottom: 80px;">
     <h2>包裹</h2>
     <form action="{{ route('package.public') }}" method="get">
         <div class="form-row">

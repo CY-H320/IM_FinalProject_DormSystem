@@ -25,6 +25,23 @@ class BookingController extends Controller
         return view('equipments.index', compact('equipments'));
     }
 
+    public function public()
+    {
+        $equipments = Equipment::all();
+
+        foreach ($equipments as $equipment) {
+            $bookings = Booking::where('name', $equipment->name)->get();
+            foreach ($bookings as $booking) {
+                $student = Student::where('studentID', $booking->booked_by)->first();
+                $booking->student = $student;
+            }
+            $equipment->bookings = $bookings;
+        }
+
+        return view('equipments.public', compact('equipments'));
+    }
+
+
     public function create()
     {
         $equipments = Equipment::all();
@@ -59,5 +76,15 @@ class BookingController extends Controller
         $booking->delete();
 
         return redirect()->route('equipments.index')->with('success', 'Booking deleted successfully.');
+    }
+
+    public function clean()
+    {
+        $today = today();
+        $outdatedBookings = Booking::where('end_time', '<', $today)->get();
+        foreach ($outdatedBookings as $booking) {
+            $booking->delete();
+        }
+        return redirect()->back()->with('success', '過期借用已成功清理。');
     }
 }

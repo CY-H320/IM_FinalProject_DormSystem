@@ -51,6 +51,11 @@
             <a href="{{ url('login') }}" class="btn">登入</a>
             <a href="{{ route('package.public') }}" class="btn">包裹</a>
             <a href="{{ route('visitors.publicCreate') }}" class="btn">訪客</a>
+            <a href="{{ route('equipments.public') }}" class="btn">公共設施</a>
+            <!-- <form action="/" method="post">
+                @csrf
+                <button type="submit">Run Python</button>
+            </form> -->
         </div>
     </div>
     @include('footer')

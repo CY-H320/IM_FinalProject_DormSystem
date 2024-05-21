@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>寄信模組化</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/bootstrap.min.css')}}" type="text/css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .jumbotron {
+            background-color: #757c87;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: #757c87;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>郵件寄送</h1>
+            <p>住宿生郵件寄送專區</p>
+        </div>
+
+        <form action="/api/send_mail" method="post">
+            <div class="form-group">
+                <label for="subject">信件主旨:</label>
+                <select id="subject" name="subject" class="form-control">
+                    <option disabled selected value="">請選擇信件主旨</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="content">信件內容:</label>
+                <textarea id="content" rows="10" name="content" class="form-control">{{ message }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="emails">寄信人:</label>
+                <textarea id="emails" name="emails" rows="5" class="form-control" placeholder="請在此輸入電子郵件地址，每行一個"></textarea>
+            </div>
+            
+            <button type="submit">寄出</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Function to populate subject options
+        function populateSubjectOptions() {
+            var subjects = ['領取夜點', '修繕狀況', '開學感謝信', '期末回饋調查', '領取包裹通知'];
+            var subjectSelect = document.getElementById('subject');
+            subjects.forEach(function(subject) {
+                var option = document.createElement('option');
+                option.value = subject;
+                option.textContent = subject;
+                subjectSelect.appendChild(option);
+            });
+        }
+
+        // Call function to populate subject options
+        populateSubjectOptions();
+        
+        // Event listener for subject change
+        document.getElementById('subject').addEventListener('change', function() {
+            var selectedSubject = this.value;
+            var mailContents = {
+                '領取夜點': '各位舍胞們大家好，學期快要結束了，希望大家一切都好！記得要好好吃飯，好好睡覺，好好照顧自己～時間跟地點如下，有登記的大家要記得來領取喔！報名表單：https://forms.gle/BU2cssD5jx1Tv33b9 提交表單後，請確認是否收到Google系統的自動回信，收到回信才表示表單有提交成功喔！',
+                '修繕狀況': '舍胞你好，關於這次的修繕狀況，已經有聯絡技師幫忙修繕，大約2-3天會修繕完畢，若有任何問題也歡迎回信詢問喔～',
+                '開學感謝信': '各位舍胞們大家好，開學了不知道大家假期過得如何呢？希望大家都有一個愉快的假期。在這邊，輔導員想要寫信跟大家關心一下，若有想聊天的，又或者是有任何想提出的需求，都歡迎跟輔導員約時間討論唷～謝謝大家！',
+                '期末回饋調查': '各位舍胞們大家好，學期快要結束了，希望大家一切都好！有鑒於學期已經進入尾聲，我們也想聽聽舍胞們對於我們的反饋。下面是我們的表單連結，若有任何想說的，包含感謝、意見提出、想詢問的問題等等都歡迎填答問卷喲～祝大家期末愉快！',
+                '領取包裹通知': '舍胞你好，你的包裹已經送達警衛室，請儘速去領取喔～謝謝'
+            };
+            document.getElementById('content').value = mailContents[selectedSubject] || '';
+        });
+    </script>
+</body>
+</html>
